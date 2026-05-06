@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="EcoPass — Reciclagem que move a cidade. Transformamos latas e garrafas em passagens de ônibus e metrô.">
+<title>EcoPass — Reciclagem que move a cidade</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0D1A0A;
+  --leaf:#1A3A0D;
+  --grass:#2D6B1A;
+  --lime:#5CB82E;
+  --mist:#F2F8EE;
+  --stone:#F7F5F0;
+  --chalk:#FFFFFF;
+  --warm:#1C1A14;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--stone);color:var(--ink);overflow-x:hidden}
+
+.lp{max-width:960px;margin:0 auto;padding:0 2rem 5rem}
+
+/* NAV */
+.nav-bar{display:flex;align-items:center;justify-content:space-between;padding:1.4rem 0;position:sticky;top:0;background:rgba(247,245,240,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);z-index:100;margin-bottom:.5rem}
+.nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.4rem;color:var(--leaf);letter-spacing:-.03em;text-decoration:none}
+.nav-logo span{color:var(--lime)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-size:.88rem;color:#5A6B4A;text-decoration:none;font-weight:400;transition:color .2s}
+.nav-links a:hover{color:var(--leaf)}
+.nav-cta{background:var(--leaf);color:var(--chalk);border:none;border-radius:40px;padding:10px 22px;font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:500;cursor:pointer;text-decoration:none;transition:all .2s}
+.nav-cta:hover{background:var(--grass)}
+
+/* HERO */
+.hero{padding:5rem 0 4rem;text-align:center;position:relative}
+.hero-eyebrow{display:inline-block;font-size:11px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--grass);border:1px solid var(--grass);border-radius:20px;padding:5px 16px;margin-bottom:1.8rem}
+.hero h1{font-family:'Syne',sans-serif;font-size:clamp(2.8rem,7vw,4.8rem);font-weight:800;line-height:1.04;letter-spacing:-.04em;color:var(--leaf);margin-bottom:1.2rem}
+.hero h1 em{font-style:normal;color:var(--lime)}
+.hero-sub{font-size:1.1rem;line-height:1.75;color:var(--warm);max-width:580px;margin:0 auto 2.5rem;font-weight:300}
+.cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:4rem}
+.btn-primary{background:var(--leaf);color:var(--chalk);border:none;border-radius:40px;padding:14px 30px;font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:500;cursor:pointer;transition:all .25s;text-decoration:none;display:inline-block}
+.btn-primary:hover{background:var(--grass);transform:translateY(-2px)}
+.btn-ghost{background:transparent;color:var(--leaf);border:1.5px solid var(--leaf);border-radius:40px;padding:13px 30px;font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:500;cursor:pointer;transition:all .25s;text-decoration:none;display:inline-block}
+.btn-ghost:hover{background:var(--mist);transform:translateY(-2px)}
+.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(45,107,26,.15);border-radius:18px;overflow:hidden;border:1px solid rgba(45,107,26,.15)}
+.stat-box{background:var(--chalk);padding:1.5rem 1rem;text-align:center}
+.stat-num{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:var(--leaf);display:block;line-height:1}
+.stat-lbl{font-size:.75rem;color:#6B7A60;margin-top:6px;display:block;font-weight:400;line-height:1.45}
+
+/* SECTIONS */
+.section{padding:4rem 0}
+.section-tag{font-size:10px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--grass);margin-bottom:.6rem;display:block}
+.section-title{font-family:'Syne',sans-serif;font-size:2.1rem;font-weight:800;color:var(--leaf);line-height:1.12;margin-bottom:1rem;letter-spacing:-.025em}
+.section-sub{font-size:.98rem;color:var(--warm);line-height:1.75;max-width:600px;font-weight:300;margin-bottom:2rem}
+.divider{height:1px;background:rgba(45,107,26,.12);margin:0}
+
+/* HOW IT WORKS */
+.steps{display:grid;gap:1px;background:rgba(45,107,26,.1);border-radius:18px;overflow:hidden;border:1px solid rgba(45,107,26,.1)}
+.step-item{background:var(--chalk);padding:1.5rem 1.75rem;display:flex;gap:1.3rem;align-items:flex-start;cursor:pointer;transition:background .2s}
+.step-item:hover,.step-item.active{background:var(--mist)}
+.step-num{width:38px;height:38px;border-radius:50%;background:var(--leaf);color:var(--chalk);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:700;font-size:.88rem;flex-shrink:0;margin-top:2px;transition:all .25s}
+.step-item.active .step-num{background:var(--lime);color:var(--leaf)}
+.step-title{font-weight:500;font-size:1.05rem;color:var(--leaf);margin-bottom:5px}
+.step-desc{font-size:.9rem;color:#5A6B4A;line-height:1.65;font-weight:300}
+.step-detail{max-height:0;overflow:hidden;transition:max-height .4s ease;font-size:.88rem;color:#6B7A60;line-height:1.65;font-weight:300}
+.step-item.active .step-detail{max-height:140px;margin-top:.7rem}
+
+/* CALC */
+.calc-wrap{background:var(--leaf);border-radius:22px;padding:2.5rem;margin-top:2rem;color:var(--chalk)}
+.calc-title{font-family:'Syne',sans-serif;font-weight:800;font-size:1.4rem;margin-bottom:1.8rem;color:var(--chalk)}
+.calc-row{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:2rem}
+.calc-label{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:.5rem;display:block}
+.range-val{font-size:.9rem;color:rgba(255,255,255,.85);margin-top:.4rem}
+input[type=range]{-webkit-appearance:none;width:100%;height:5px;border-radius:3px;background:rgba(255,255,255,.2);outline:none;cursor:pointer}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--lime);cursor:pointer;transition:transform .15s}
+input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.15)}
+input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--lime);cursor:pointer;border:none}
+.calc-results{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.calc-result{background:rgba(255,255,255,.1);border-radius:14px;padding:1.25rem;text-align:center;border:1px solid rgba(255,255,255,.08)}
+.calc-result-num{font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:800;color:var(--lime)}
+.calc-result-lbl{font-size:.72rem;color:rgba(255,255,255,.6);margin-top:5px;line-height:1.45}
+
+/* DIFERENCIAL */
+.diff-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:2rem}
+.diff-card{border:1px solid rgba(45,107,26,.15);border-radius:16px;padding:1.5rem;background:var(--chalk);transition:border-color .2s,transform .2s}
+.diff-card:hover{border-color:rgba(45,107,26,.4);transform:translateY(-2px)}
+.diff-icon{width:40px;height:40px;border-radius:12px;background:var(--mist);display:flex;align-items:center;justify-content:center;margin-bottom:1rem;font-size:20px}
+.diff-title{font-weight:500;font-size:1rem;color:var(--leaf);margin-bottom:.5rem}
+.diff-desc{font-size:.85rem;color:#5A6B4A;line-height:1.6;font-weight:300}
+
+/* NÚMEROS */
+.nums-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:2rem}
+.num-card{background:var(--mist);border-radius:16px;padding:1.5rem;border:1px solid rgba(45,107,26,.1);transition:border-color .2s}
+.num-card:hover{border-color:rgba(45,107,26,.3)}
+.num-val{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:var(--leaf);display:block;margin-bottom:.3rem}
+.num-lbl{font-size:.85rem;color:var(--leaf);font-weight:500;margin-bottom:.3rem}
+.num-note{font-size:.78rem;color:#8A9B7A;line-height:1.5;font-weight:300}
+
+/* MARCAS */
+.brands{display:flex;flex-wrap:wrap;gap:10px;margin-top:1.2rem}
+.brand-pill{border:1px solid rgba(45,107,26,.2);border-radius:30px;padding:8px 18px;font-size:.85rem;color:var(--leaf);background:var(--chalk);font-weight:400;transition:all .2s;cursor:default}
+.brand-pill:hover{background:var(--mist);border-color:rgba(45,107,26,.4)}
+
+/* COMP TABLE */
+.comp-table{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:2rem}
+.comp-col{border-radius:16px;overflow:hidden;border:1px solid rgba(45,107,26,.12)}
+.comp-head{padding:1rem 1.25rem;font-weight:500;font-size:.9rem}
+.comp-head.bad{background:#FEF2F2;color:#991B1B;border-bottom:1px solid rgba(153,27,27,.1)}
+.comp-head.good{background:var(--mist);color:var(--leaf);border-bottom:1px solid rgba(45,107,26,.12)}
+.comp-item{padding:.7rem 1.25rem;font-size:.83rem;display:flex;align-items:flex-start;gap:.5rem;line-height:1.5;border-bottom:1px solid rgba(45,107,26,.06)}
+.comp-item:last-child{border-bottom:none}
+.comp-item.bad{background:#FFFAFA;color:#7F1D1D}
+.comp-item.good{background:var(--chalk);color:#27500A}
+.comp-item .ico{flex-shrink:0;margin-top:1px;font-size:.9rem}
+
+/* TIMELINE */
+.timeline{margin-top:2rem;position:relative;padding-left:2rem}
+.timeline::before{content:'';position:absolute;left:9px;top:10px;bottom:10px;width:2px;background:rgba(45,107,26,.2);border-radius:2px}
+.tl-item{position:relative;margin-bottom:1.8rem}
+.tl-item::before{content:'';position:absolute;left:-2rem;top:7px;width:13px;height:13px;border-radius:50%;background:var(--grass);border:2px solid var(--stone);transition:background .2s}
+.tl-item:hover::before{background:var(--lime)}
+.tl-time{font-size:.72rem;font-weight:500;color:var(--grass);letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px}
+.tl-title{font-weight:500;font-size:1rem;color:var(--leaf);margin-bottom:.3rem}
+.tl-desc{font-size:.86rem;color:#5A6B4A;line-height:1.6;font-weight:300}
+
+/* CTA FINAL */
+.cta-section{background:var(--leaf);border-radius:26px;padding:4rem 2rem;text-align:center;margin-top:2rem;position:relative;overflow:hidden}
+.cta-section::before{content:'';position:absolute;top:-40px;right:-40px;width:200px;height:200px;background:rgba(92,184,46,.06);border-radius:50%}
+.cta-section h2{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:var(--chalk);margin-bottom:.85rem;letter-spacing:-.025em;position:relative}
+.cta-section p{font-size:.98rem;color:rgba(255,255,255,.7);margin-bottom:2.5rem;font-weight:300;line-height:1.7;max-width:520px;margin-left:auto;margin-right:auto;position:relative}
+.btn-light{background:var(--lime);color:var(--leaf);border:none;border-radius:40px;padding:14px 36px;font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:500;cursor:pointer;transition:all .25s;text-decoration:none;display:inline-block;position:relative}
+.btn-light:hover{background:#6DD63A;transform:translateY(-2px)}
+
+/* FOOTER */
+.footer{text-align:center;padding:2.5rem 0 0;color:#8A9B7A;font-size:.82rem;font-weight:300;line-height:1.6}
+.footer strong{color:var(--leaf);font-weight:500}
+
+/* FADE IN ANIMATION */
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+
+/* RESPONSIVE */
+@media(max-width:700px){
+  .nav-links{display:none}
+  .hero h1{font-size:2.2rem}
+  .hero-stats,.calc-row,.diff-grid,.calc-results,.comp-table,.nums-row{grid-template-columns:1fr}
+  .section-title{font-size:1.6rem}
+  .lp{padding:0 1.2rem 4rem}
+}
+</style>
+</head>
+<body>
+
+<div class="lp">
+
+<nav class="nav-bar">
+  <a href="#" class="nav-logo">Eco<span>Pass</span></a>
+  <ul class="nav-links">
+    <li><a href="#como">Como funciona</a></li>
+    <li><a href="#impacto">Impacto</a></li>
+    <li><a href="#marcas">Para marcas</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+  </ul>
+  <a href="#contato" class="nav-cta">Falar com a Astéria</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero fade-in">
+  <div class="hero-eyebrow">Apresentado para a Astéria — Desafio de Inovação</div>
+  <h1>Reciclagem que<br><em>move a cidade</em></h1>
+  <p class="hero-sub">Transformamos latas e garrafas em passagens de ônibus e metrô. As marcas financiam o benefício. A cidade ganha mobilidade limpa e real.</p>
+  <div class="cta-row">
+    <a href="#como" class="btn-primary">Ver como funciona</a>
+    <a href="#impacto" class="btn-ghost">Calcular impacto</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-box"><span class="stat-num" id="animTotens">0</span><span class="stat-lbl">totens inteligentes<br>fase piloto</span></div>
+    <div class="stat-box"><span class="stat-num" id="animCidades">0</span><span class="stat-lbl">cidades na<br>expansão ano 1</span></div>
+    <div class="stat-box"><span class="stat-num" id="animMarcas">0</span><span class="stat-lbl">marcas âncora<br>identificadas</span></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- COMO FUNCIONA -->
+<section class="section fade-in" id="como">
+  <span class="section-tag">como funciona</span>
+  <h2 class="section-title">Quatro etapas. Uma cidade mais limpa.</h2>
+  <p class="section-sub">O sistema é simples para o usuário, sofisticado por dentro. Clique em cada etapa para saber mais.</p>
+  <div class="steps">
+    <div class="step-item active" onclick="toggleStep(this)">
+      <div class="step-num">1</div>
+      <div>
+        <div class="step-title">A pessoa recicla no totem</div>
+        <div class="step-desc">Deposita latas, garrafas ou papel no totem inteligente instalado no metrô ou ponto de ônibus</div>
+        <div class="step-detail">O totem possui balança, leitor óptico e tela interativa. Reconhece o material automaticamente, pesa e registra em tempo real. Sem papel, sem cadastro manual — é só depositar dentro. Custo estimado por unidade: R$15k a R$40k dependendo do nível de sofisticação.</div>
+      </div>
+    </div>
+    <div class="step-item" onclick="toggleStep(this)">
+      <div class="step-num">2</div>
+      <div>
+        <div class="step-title">Ganha milhas verdes no app</div>
+        <div class="step-desc">O aplicativo credita milhas verdes via QR code ou NFC do cartão de transporte automaticamente</div>
+        <div class="step-detail">Integração direta com o cartão de transporte já existente da cidade. Sem novo cartão, sem novo cadastro. A pessoa abre o app, escaneia ou aproxima — as milhas já estão lá em segundos. Simples, imediato e sem fricção.</div>
+      </div>
+    </div>
+    <div class="step-item" onclick="toggleStep(this)">
+      <div class="step-num">3</div>
+      <div>
+        <div class="step-title">Troca por passagens gratuitas</div>
+        <div class="step-desc">Milhas viram passagens de ônibus e metrô — bancadas pela marca patrocinadora</div>
+        <div class="step-detail">Quem banca a passagem não é a sucata — é a marca com meta ESG. A reciclagem é o comportamento que justifica o benefício, não o custeio. Esse modelo desvincula a sustentabilidade financeira do valor de mercado do alumínio (~R$0,06 por lata).</div>
+      </div>
+    </div>
+    <div class="step-item" onclick="toggleStep(this)">
+      <div class="step-num">4</div>
+      <div>
+        <div class="step-title">A marca mede tudo em tempo real</div>
+        <div class="step-desc">Relatório de impacto mensal via TradeSuite — interações, peso reciclado, perfil e alcance real</div>
+        <div class="step-detail">Cada totem é um sensor urbano. Registra interações únicas, peso reciclado por material, perfil demográfico por localização e horário, compartilhamentos no app. Integrado diretamente ao Power BI via TradeSuite da Astéria — sem desenvolvimento adicional.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CALCULADORA -->
+<section class="section fade-in" id="impacto">
+  <span class="section-tag">calculadora de impacto</span>
+  <h2 class="section-title">Quanto a sua marca impacta?</h2>
+  <p class="section-sub">Ajuste os parâmetros e veja o potencial real de uma campanha EcoPass.</p>
+  <div class="calc-wrap">
+    <div class="calc-title">Simulador de campanha</div>
+    <div class="calc-row">
+      <div>
+        <label class="calc-label">Número de totens</label>
+        <input type="range" min="1" max="50" value="5" step="1" id="slTotens" oninput="calcUpdate()">
+        <div class="range-val" id="lblTotens">5 totens</div>
+      </div>
+      <div>
+        <label class="calc-label">Duração da campanha (meses)</label>
+        <input type="range" min="1" max="12" value="3" step="1" id="slMeses" oninput="calcUpdate()">
+        <div class="range-val" id="lblMeses">3 meses</div>
+      </div>
+    </div>
+    <div class="calc-results">
+      <div class="calc-result">
+        <div class="calc-result-num" id="resInteracoes">15.000</div>
+        <div class="calc-result-lbl">interações<br>estimadas</div>
+      </div>
+      <div class="calc-result">
+        <div class="calc-result-num" id="resToneladas">4,5t</div>
+        <div class="calc-result-lbl">material<br>reciclado</div>
+      </div>
+      <div class="calc-result">
+        <div class="calc-result-num" id="resPassagens">2.250</div>
+        <div class="calc-result-lbl">passagens<br>geradas</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- DIFERENCIAL ASTERIA -->
+<section class="section fade-in">
+  <span class="section-tag">por que a astéria</span>
+  <h2 class="section-title">O produto que só a Astéria entrega</h2>
+  <p class="section-sub">A TradeSuite já integra Power BI, ponto de venda e estratégias comerciais. O EcoPass é a camada física que faltava.</p>
+  <div class="diff-grid">
+    <div class="diff-card">
+      <div class="diff-icon">♻</div>
+      <div class="diff-title">ESG como experiência física</div>
+      <div class="diff-desc">A marca não declara ESG — ela gera mobilidade urbana gratuita. Visível, compartilhável, impossível de fingir.</div>
+    </div>
+    <div class="diff-card">
+      <div class="diff-icon">📊</div>
+      <div class="diff-title">Dados que outdoor não entrega</div>
+      <div class="diff-desc">Interações únicas, peso reciclado, perfil demográfico e alcance — integrados ao TradeSuite via Power BI em tempo real.</div>
+    </div>
+    <div class="diff-card">
+      <div class="diff-icon">🏙</div>
+      <div class="diff-title">Mídia urbana inteligente</div>
+      <div class="diff-desc">O totem é ponto de contato físico, sensor de comportamento e mídia ao mesmo tempo. Uma tela que as pessoas escolhem tocar.</div>
+    </div>
+    <div class="diff-card">
+      <div class="diff-icon">🔗</div>
+      <div class="diff-title">Ecossistema impossível de copiar</div>
+      <div class="diff-desc">Combina infraestrutura física, dados proprietários e expertise de trade marketing de 20 anos. IA não replica isso em semanas.</div>
+    </div>
+  </div>
+
+  <div class="comp-table" style="margin-top:2rem">
+    <div class="comp-col">
+      <div class="comp-head bad">✗ Mercado atual</div>
+      <div class="comp-item bad"><span class="ico">—</span>ESG como relatório anual, não experiência real</div>
+      <div class="comp-item bad"><span class="ico">—</span>Outdoor sem dados de impacto por pessoa</div>
+      <div class="comp-item bad"><span class="ico">—</span>Software desconectado do mundo físico</div>
+      <div class="comp-item bad"><span class="ico">—</span>Marca fala sobre sustentabilidade</div>
+    </div>
+    <div class="comp-col">
+      <div class="comp-head good">✓ Astéria + EcoPass</div>
+      <div class="comp-item good"><span class="ico">+</span>ESG como ação física diária e mensurável</div>
+      <div class="comp-item good"><span class="ico">+</span>Relatório de interações individuais em tempo real</div>
+      <div class="comp-item good"><span class="ico">+</span>TradeSuite integrada ao totem físico</div>
+      <div class="comp-item good"><span class="ico">+</span>Marca gera mobilidade urbana gratuita real</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- NÚMEROS -->
+<section class="section fade-in" id="marcas">
+  <span class="section-tag">viabilidade financeira</span>
+  <h2 class="section-title">Números que investidores perguntam</h2>
+  <div class="nums-row">
+    <div class="num-card">
+      <span class="num-val">R$15–40k</span>
+      <div class="num-lbl">custo por totem</div>
+      <div class="num-note">Fabricação + instalação + conectividade. Ativo da marca patrocinadora, não da EcoPass.</div>
+    </div>
+    <div class="num-card">
+      <span class="num-val">R$0</span>
+      <div class="num-lbl">capex inicial para a Astéria</div>
+      <div class="num-note">Primeiro lote financiado pela marca âncora ou edital público.</div>
+    </div>
+    <div class="num-card">
+      <span class="num-val">R$5,00</span>
+      <div class="num-lbl">por passagem bancada</div>
+      <div class="num-note">A marca financia. A reciclagem é o comportamento — não o custeio financeiro.</div>
+    </div>
+    <div class="num-card">
+      <span class="num-val">100%</span>
+      <div class="num-lbl">mensurável por interação</div>
+      <div class="num-note">Dados de impacto que nenhum outdoor ou painel digital entrega hoje.</div>
+    </div>
+  </div>
+  <div style="margin-top:2rem">
+    <span class="section-tag">marcas âncora identificadas</span>
+    <div class="brands">
+      <span class="brand-pill">Ambev</span>
+      <span class="brand-pill">Natura</span>
+      <span class="brand-pill">Petrobras</span>
+      <span class="brand-pill">Itaú</span>
+      <span class="brand-pill">Magazine Luiza</span>
+      <span class="brand-pill">Unilever Brasil</span>
+    </div>
+    <p style="font-size:.8rem;color:#8A9B7A;margin-top:.75rem;font-weight:300">Todas com metas ESG públicas e pressão de acionistas — decidem mais rápido que o poder público.</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- TIMELINE -->
+<section class="section fade-in" id="roadmap">
+  <span class="section-tag">roadmap de implementação</span>
+  <h2 class="section-title">Da ideia ao ecossistema em 18 meses</h2>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-time">0 — 3 meses</div>
+      <div class="tl-title">Validar com marca âncora</div>
+      <div class="tl-desc">Apresentar para Ambev, Natura ou Petrobras. A marca financia o primeiro lote de 5 totens como piloto. Zero capex para a Astéria.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">3 — 6 meses</div>
+      <div class="tl-title">Piloto em SP — 5 pontos estratégicos</div>
+      <div class="tl-desc">Metrô Paulista, Metrô Brás, Terminal Bandeira, Av. Paulista e 1 parque público. 90 dias de coleta para o primeiro relatório de impacto real.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">6 — 9 meses</div>
+      <div class="tl-title">Integrar TradeSuite ao dashboard EcoPass</div>
+      <div class="tl-desc">Conectar dados dos totens à plataforma existente. Clientes atuais de trade marketing ganham o módulo ESG automaticamente.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">9 — 18 meses</div>
+      <div class="tl-title">Escalar para Rio de Janeiro e Curitiba</div>
+      <div class="tl-desc">Com dados do piloto em mãos, fechar 3 novas marcas. O produto se financia pelos contratos de patrocínio — crescimento autossustentável.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-section fade-in" id="contato">
+  <h2>Pronto para mover a cidade?</h2>
+  <p>O EcoPass não pede que a Astéria reinvente o negócio. Pede que ela use o que já tem — TradeSuite, Power BI, rede de clientes — para conectar marcas ao mundo físico de uma forma que nenhum concorrente consegue entregar.</p>
+  <a href="mailto:contato@ecopass.com.br" class="btn-light">Falar com a Astéria</a>
+</section>
+
+<footer class="footer">
+  <p>EcoPass &copy; 2025 &nbsp;·&nbsp; <strong>Desenvolvido para o desafio de inovação — Astéria</strong></p>
+  <p style="margin-top:.4rem">Tecnologia + Sustentabilidade + Trade Marketing</p>
+</footer>
+
+</div>
+
+<script>
+function toggleStep(el){
+  document.querySelectorAll('.step-item').forEach(function(s){s.classList.remove('active');});
+  el.classList.add('active');
+}
+
+function animCount(id,target,suffix,dur){
+  var el=document.getElementById(id);
+  if(!el)return;
+  var start=0,step=Math.max(1,Math.ceil(target/60));
+  var timer=setInterval(function(){
+    start=Math.min(start+step,target);
+    el.textContent=start+(suffix||'');
+    if(start>=target)clearInterval(timer);
+  },Math.round(dur/60));
+}
+setTimeout(function(){
+  animCount('animTotens',5,'',800);
+  animCount('animCidades',3,'',900);
+  animCount('animMarcas',6,'',700);
+},600);
+
+function calcUpdate(){
+  var t=parseInt(document.getElementById('slTotens').value);
+  var m=parseInt(document.getElementById('slMeses').value);
+  document.getElementById('lblTotens').textContent=t+' totem'+(t>1?'s':'');
+  document.getElementById('lblMeses').textContent=m+' mes'+(m>1?'es':'');
+  var interacoes=t*1000*m;
+  var ton=(t*30*m/1000);
+  var tonStr=ton.toFixed(1).replace('.',',')+'t';
+  var passagens=Math.round(t*150*m);
+  document.getElementById('resInteracoes').textContent=interacoes.toLocaleString('pt-BR');
+  document.getElementById('resToneladas').textContent=tonStr;
+  document.getElementById('resPassagens').textContent=passagens.toLocaleString('pt-BR');
+}
+
+var observer=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if(e.isIntersecting){e.target.classList.add('visible');}
+  });
+},{threshold:0.1});
+document.querySelectorAll('.fade-in').forEach(function(el){observer.observe(el);});
+</script>
+</body>
+</html>
